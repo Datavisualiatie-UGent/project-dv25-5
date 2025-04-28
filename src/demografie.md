@@ -3,6 +3,7 @@
 ```js
 import * as Plot from "@observablehq/plot";
 import { select } from "@observablehq/inputs";
+import { AlcoholPercentageMap } from "./components/demographics.js";
 ```
 
 ```js
@@ -176,6 +177,7 @@ const alcoholByGenderPercent = Object.keys(alcoholByGender).map((gender) => ({
 <p>
   <strong>Alcohol Consumption by State</strong>
   ${statesAlcoholPercentage()}
+  ${AlcoholPercentageMap(gut)}
 </p>
 
 <p>
