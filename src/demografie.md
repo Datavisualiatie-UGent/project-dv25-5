@@ -7,7 +7,7 @@ title: Demographics
 ```js
 import * as Plot from "@observablehq/plot";
 import { select } from "@observablehq/inputs";
-import { AlcoholPercentageMap, alcoholByGenderChart  } from "./components/demographics.js";
+import { alcoholPercentageMap, alcoholByGenderChart  } from "./components/demographics.js";
 ```
 
 ```js
@@ -142,12 +142,14 @@ const alcoholByGenderPercent = Object.keys(alcoholByGender).map((gender) => ({
 }));
 ```
 
-<p>
-  <strong>Alcohol Consumption by State</strong>
-  ${AlcoholPercentageMap(gut)}
-</p>
+<div class="grid grid-cols-1">
+  <div class="card">
+    ${resize((width) => alcoholPercentageMap(gut, {width}))}
+  </div>
+</div>
 
-<p>
-  <strong>Alcohol Consumption by gender and age group</strong>
-  ${alcoholByGenderChart(gut)}
-</p>
+<div class="grid grid-cols-1">
+  <div class="card">
+    ${resize((width) => alcoholByGenderChart(gut, {width}))}
+  </div>
+</div>

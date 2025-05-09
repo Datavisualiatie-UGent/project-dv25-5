@@ -56,26 +56,54 @@ const stateAbbreviationMap = {
   'Wyoming': 'WY'
 }
 
-export function AlcoholPercentageMap(gut) {
-  const colorScale = d3.scaleQuantize([0, 100], d3.schemeBlues[9]);
+export function alcoholPercentageMap(gut, {width} = {}) {
   const alcoholByState = new Map(
     d3
       .rollups(
-        gut, // Replace `gut` with your dataset
+        gut,
         (v) => d3.mean(v, (d) => (d.alcohol_consumption === true ? 1 : 0)) * 100,
         (d) => d.state
       )
       .map(([state, percentage]) => [state, percentage])
   );
 
-  const width = 960;
-  const height = 600;
+  const percentages = Array.from(alcoholByState.values());
 
-  const svg = d3.create("svg").attr("viewBox", [0, 0, width, height]);
+  // calculate actual min and max from data
+  const minPercentage = d3.min(percentages) || 0;
+  const maxPercentage = d3.max(percentages) || 100;
 
-  const projection = d3.geoAlbersUsa().scale(1280).translate([width / 2, height / 2]);
+  // round min down and max up to nearest "nice" values for better color scale
+  const colorMin = Math.max(0, Math.floor(minPercentage / 5) * 5);
+  const colorMax = Math.min(100, Math.ceil(maxPercentage / 5) * 5);
+  
+  // create color scale with actual data range
+  const colorScale = d3.scaleQuantize([colorMin, colorMax], d3.schemeBlues[7]);
+
+  // set dimensions with padding
+  const height = width * 0.60;
+  const padding = { top: 0, right: 10, bottom: 45, left: 10 };
+  const innerWidth = width - padding.left - padding.right;
+  const innerHeight = height - padding.top - padding.bottom;
+
+  // create SVG with proper dimensions
+  const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("viewBox", [0, 0, width, height]);
+
+  // create container group with padding
+  const g = svg.append("g")
+    .attr("transform", `translate(${padding.left},${padding.top})`);
+
+  // set up projection scaled to inner dimensions
+  const projection = d3.geoAlbersUsa()
+    .scale(innerWidth * 1.2)
+    .translate([innerWidth / 2, innerHeight / 2]);
+
   const path = d3.geoPath(projection);
 
+  // create tooltip
   const tooltip = d3
     .select("body")
     .append("div")
@@ -90,47 +118,113 @@ export function AlcoholPercentageMap(gut) {
     .style("pointer-events", "none")
     .style("visibility", "hidden");
 
-  svg
-  .append("g")
-  .selectAll("path")
-  .data(topojson.feature(us, us.objects.states).features)
-  .join("path")
-  .attr("fill", (d) => {
-    const percentage = alcoholByState.get(stateAbbreviationMap[d.properties.name]);
-    return percentage != null ? colorScale(percentage) : "#ccc"; // Default color for missing data
-  })
-  .attr("d", path)
-  .on("mouseover", (event, d) => {
-    const percentage = alcoholByState.get(stateAbbreviationMap[d.properties.name]);
-    tooltip
-      .style("visibility", "visible")
-      .html(
-        `<strong>${d.properties.name}</strong><br>` +
-        `${percentage != null ? percentage.toFixed(2) : "No data"}% alcohol consumers`
-      );
-  })
-  .on("mousemove", (event) => {
-    tooltip
-      .style("top", `${event.pageY + 10}px`)
-      .style("left", `${event.pageX + 10}px`);
-  })
-  .on("mouseout", () => {
-    tooltip.style("visibility", "hidden");
-  });
+  // add states with color based on data
+  g.append("g")
+    .selectAll("path")
+    .data(topojson.feature(us, us.objects.states).features)
+    .join("path")
+    .attr("fill", (d) => {
+      const percentage = alcoholByState.get(stateAbbreviationMap[d.properties.name]);
+      return percentage != null ? colorScale(percentage) : "#ccc"; // default color for missing data
+    })
+    .attr("d", path)
+    .attr("stroke", "none") // default stroke
+    .on("mouseover", function(event, d) {
+      d3.select(this)
+        .attr("stroke", "yellow")
+        .attr("stroke-width", 2)
+        .attr("stroke-opacity", 1)
+        .raise(); // bring to front
+      
+      const percentage = alcoholByState.get(stateAbbreviationMap[d.properties.name]);
+      tooltip
+        .style("visibility", "visible")
+        .html(
+          `<strong>${d.properties.name}</strong><br>` +
+          `${percentage != null ? percentage.toFixed(2) : "No data"}% alcohol consumers`
+        );
+    })
+    .on("mouseout", function() {
+      // reset the state's appearance
+      d3.select(this)
+        .attr("stroke", "none");
+      
+      tooltip.style("visibility", "hidden");
+    })
+    .on("mousemove", (event) => {
+      tooltip
+        .style("top", `${event.pageY + 10}px`)
+        .style("left", `${event.pageX + 10}px`);
+    });
 
-  svg
-    .append("path")
-    .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
+  // add state borders
+  g.append("path")
+    .datum(topojson.mesh(us, us.objects.states))
     .attr("fill", "none")
     .attr("stroke", "white")
+    .attr("stroke-width", 0.7)
     .attr("stroke-linejoin", "round")
-    .attr("d", path);
+    .attr("stroke-opacity", 0.7)
+    .attr("d", path)
+    .raise();
+
+  // add legend
+  const legendWidth = 200;
+  const legendHeight = 15;
+  const legendX = width - padding.right - legendWidth;
+  const legendY = height - padding.bottom + 10;
+
+  const legendScale = d3.scaleLinear()
+    .domain(colorScale.domain())
+    .range([0, legendWidth]);
+
+  const legendAxis = d3.axisBottom(legendScale)
+    .tickSize(legendHeight)
+    .tickFormat(d => `${d}%`)
+    .ticks(5);
+
+  const legend = svg.append("g")
+    .attr("transform", `translate(${legendX}, ${legendY})`);
+
+  // add color gradient
+  const colorRange = colorScale.range();
+  
+  const defs = svg.append("defs");
+  const linearGradient = defs.append("linearGradient")
+    .attr("id", "alcohol-gradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "0%");
+
+  colorRange.forEach((color, i) => {
+    const offset = i / (colorRange.length - 1);
+    linearGradient.append("stop")
+      .attr("offset", `${offset * 100}%`)
+      .attr("stop-color", color);
+  });
+
+  // add legend rectangle with gradient
+  legend.append("rect")
+    .attr("width", legendWidth)
+    .attr("height", legendHeight)
+    .style("fill", "url(#alcohol-gradient)");
+
+  // add legend axis
+  legend.append("g")
+    .call(legendAxis)
+    .call(g => g.select(".domain").remove())
+    .call(g => g.selectAll(".tick line").attr("stroke", "#333"))
+    .call(g => g.selectAll(".tick text")
+      .attr("fill", "white")
+      .attr("font-size", "10px")
+      .attr("y", 20)); // position below the gradient
 
   return svg.node();
 }
 
 
-export function alcoholByGenderChart(gut) {
+export function alcoholByGenderChart(gut, {width} = {}) {
   // calculate percentages 
   const alcoholByAgeGenderPercent = gut
     .filter((d) => d.alcohol_consumption)
@@ -173,8 +267,7 @@ export function alcoholByGenderChart(gut) {
   const colors = {"female": "pink", "male": "skyblue"};
 
   // set up dimensions
-  const width = 800;
-  const height = 400;
+  const height = width * 0.5;
   const margin = {top: 30, right: 80, bottom: 50, left: 60};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
