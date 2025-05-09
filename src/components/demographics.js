@@ -264,7 +264,7 @@ export function alcoholByGenderChart(gut, {width} = {}) {
   // get unique age groups
   const ageGroups = [...new Set(alcoholByAgeGenderPercentData.map(d => d.ageGroup))];
   const genders = ["female", "male"];
-  const colors = {"female": "pink", "male": "skyblue"};
+  const colors = {"female": "#FF5252", "male": "#4285F4"};
 
   // set up dimensions
   const height = width * 0.5;
@@ -389,7 +389,7 @@ export function alcoholByGenderChart(gut, {width} = {}) {
       tooltip.html(`
         <div>
           <div><strong>Age:</strong> ${d.ageLabel}</div>
-          <div><strong>Gender:</strong> ${d.sex.charAt(0).toUpperCase() + d.sex.slice(1)}</div>
+          <div><strong>Gender:</strong> ${d.sex}</div>
           <div><strong>Alcohol consumers:</strong> ${d.percentage.toFixed(1)}%</div>
           <div style="color: #777; font-size: 10px;">(${d.consumed}/${d.total} participants)</div>
         </div>`)

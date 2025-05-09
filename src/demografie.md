@@ -142,12 +142,14 @@ const alcoholByGenderPercent = Object.keys(alcoholByGender).map((gender) => ({
 }));
 ```
 
+### Percentage of alcohol consumers per state:
 <div class="grid grid-cols-1">
   <div class="card">
     ${resize((width) => alcoholPercentageMap(gut, {width}))}
   </div>
 </div>
 
+### Percentage of alcohol consumers per age group/gender:
 <div class="grid grid-cols-1">
   <div class="card">
     ${resize((width) => alcoholByGenderChart(gut, {width}))}
