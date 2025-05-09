@@ -1,9 +1,13 @@
+---
+title: Demographics
+---
+
 # Demographics of Alcohol Consumers in the US
 
 ```js
 import * as Plot from "@observablehq/plot";
 import { select } from "@observablehq/inputs";
-import { AlcoholPercentageMap } from "./components/demographics.js";
+import { AlcoholPercentageMap, alcoholByGenderChart  } from "./components/demographics.js";
 ```
 
 ```js
@@ -79,16 +83,6 @@ gut = gut.filter(
 ```
 
 ```js
-const alcoholByState = d3
-  .rollups(
-    gut,
-    (v) => d3.mean(v, (d) => (d.alcohol_consumption === true ? 1 : 0)) * 100,
-    (d) => d.state,
-  )
-  .map(([state, percentage]) => ({ state, percentage }));
-```
-
-```js
 // Count the number of samples for each state
 const samplesByState = d3
   .rollups(
@@ -97,32 +91,6 @@ const samplesByState = d3
     (d) => d.state, // Group by state
   )
   .map(([state, count]) => ({ state, count })); // Convert to array of objects
-```
-
-```js
-function statesAlcoholPercentage() {
-  return Plot.plot({
-    x: { label: "State", tickRotate: -60 },
-    y: { label: "% Alcohol Consumers" },
-    marks: [
-      Plot.barY(alcoholByState, {
-        x: "state",
-        y: "percentage",
-        fill: "skyblue",
-      }),
-      Plot.tip(
-        alcoholByState,
-        Plot.pointerX({
-          x: "state",
-          y: "percentage",
-          title: (d) => `${d.state}: ${d.percentage.toFixed(2)}%`,
-          anchor: "bottom",
-        }),
-      ),
-    ],
-    marginBottom: 40,
-  });
-}
 ```
 
 ```js
@@ -176,81 +144,10 @@ const alcoholByGenderPercent = Object.keys(alcoholByGender).map((gender) => ({
 
 <p>
   <strong>Alcohol Consumption by State</strong>
-  ${statesAlcoholPercentage()}
   ${AlcoholPercentageMap(gut)}
 </p>
 
 <p>
-  <strong>Alcohol Consumption by Age Group</strong>
-  ${alcoholByAgePercent.map((d) => `${d.age_cat}: ${d.percentage.toFixed(2)}%`)}
+  <strong>Alcohol Consumption by gender and age group</strong>
+  ${alcoholByGenderChart(gut)}
 </p>
-
-<p>
-  <strong>Alcohol Consumption by gender</strong>
-${alcoholByGenderPercent.map((d) => `${d.sex}: ${d.percentage.toFixed(2)}%`)}
-</p>
-
-```js
-const alcoholByAgeGenderPercent = gut
-  .filter((d) => d.alcohol_consumption)
-  .reduce((acc, d) => {
-    const ageGroup = Math.floor(d.age_years / 10) * 10;
-    const gender = d.sex;
-    const key = `${ageGroup}_${gender}`;
-    acc[key] = (acc[key] || 0) + 1;
-    return acc;
-  }, {});
-
-const totalByAgeGender = gut.reduce((acc, d) => {
-  const ageGroup = Math.floor(d.age_years / 10) * 10;
-  const gender = d.sex;
-  const key = `${ageGroup}_${gender}`;
-  acc[key] = (acc[key] || 0) + 1;
-  return acc;
-}, {});
-
-const alcoholByAgeGenderPercentData = Object.keys(totalByAgeGender).map((key) => {
-  const [ageGroup, sex] = key.split("_");
-  const consumed = alcoholByAgeGenderPercent[key] || 0;
-  const total = totalByAgeGender[key];
-  return {
-    ageGroup: +ageGroup,
-    sex,
-    percentage: (consumed / total) * 100,
-  };
-});
-```
-
-```js
-function alcoholByGenderChart(selectedAgeGroup) {
-  const filtered = alcoholByAgeGenderPercentData.filter(
-    (d) => d.ageGroup === selectedAgeGroup,
-  );
-
-  return Plot.plot({
-    x: { label: "Gender" },
-    y: { label: "% Alcohol Consumers", domain: [0, 100] },
-    marks: [
-      Plot.barY(filtered, {
-        x: "sex",
-        y: "percentage",
-        fill: (d) => (d.sex === "female" ? "pink" : "skyblue"),
-      }),
-      Plot.text(filtered, {
-        x: "sex",
-        y: "percentage",
-        text: (d) => `${d.percentage.toFixed(1)}%`,
-        dy: -10,
-      }),
-    ],
-  });
-}
-```
-
-```js
-const selectedAgeGroup = view(
-  Inputs.select([10, 20, 30, 40, 50, 60, 70, 80, 90], { label: "selected age group" }),
-);
-```
-
-${alcoholByGenderChart(selectedAgeGroup)}
