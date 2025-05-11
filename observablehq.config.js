@@ -8,7 +8,7 @@ export default {
   // lets you organize them into sections and have unlisted pages.
   pages: [
       {name: "Demographics", path: "/demographics"},
-      {name: "Conditions", path: "/bmi"},
+      {name: "Health", path: "/health"},
       {name: "Eating Habits", path: "/eetgewoontes"},
   ],
 
