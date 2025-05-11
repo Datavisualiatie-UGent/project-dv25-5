@@ -2,7 +2,7 @@
 title: Health
 ---
 
-<h1 class="no-wrap">Alcohol consumption and BMI</h1>
+<h1 class="no-wrap">Health</h1>
 
 ```js
 let data_clean_am = await FileAttachment("data/data_clean_am.csv").csv({
@@ -33,7 +33,7 @@ import {
 
 <p class="text-container">This chart shows the percentage of people who consume alcohol at different frequencies across BMI categories. Notably, most underweight individuals never drink alcohol. The proportion of daily drinkers rises from underweight to normal and then to overweight, but drops again in the obese group. This might be explained by increased motivation to lose weight among obese individuals, or by health issues that discourage frequent alcohol use.</p>
 
-<h3>Correlation with diabetes</h3>
+<h2>Correlation with diabetes</h2>
 
 ```js
 const showDiabetics = view(
@@ -55,7 +55,7 @@ const showDiabetics = view(
 <p class="text-container">
 When highlighting diabetic individuals, it's striking that in the group that never drinks, all cases are well above a healthy BMI. In contrast, as alcohol use increases, more diabetics appear with a normal BMI. This may suggest a potential link between alcohol consumption and the presence of diabetes in individuals with a healthy weight.</p>
 
-<h3>Alcohol consumption and migraines</h3>
+<h2>Alcohol consumption and migraines</h2>
 
 <div class="grid grid-cols-1">
   <div class="card">

@@ -1,7 +1,8 @@
-# Eating habits
+# Lifestyle
 
 ```js
 let data = await FileAttachment("data/data_am_numeric.csv").csv({ typed: true });
+import { radarChart, AlcoholRadarChart } from "./components/lifestyle.js";
 ```
 
 ```js
@@ -138,6 +139,8 @@ function makeLegend(variable) {
 }
 ```
 
+<h2>Eating habits</h2>
+
 ```js
 const selectedVariable = view(
   Inputs.radio(["gluten", "lactose", "multivitamin"], {
@@ -217,3 +220,34 @@ result.push(chartsContainer);
     ${result}
   </div>
 </div>
+
+<p class="text-container">This plot reveals that a notably large share of daily alcohol consumers report not feeling well when consuming gluten. This may point to increased sensitivity in this group, or possibly lifestyle or dietary factors that correlate with daily drinking.</p>
+
+<p class="text-container">
+When it comes to lactose, it's interesting that the highest proportion of lactose consumers are the people who never drink alcohol, though this is still only about a quarter of that group which may suggest that lactose consumption is generally low in the sample.</p>
+
+<p class="text-container">
+Multivitamin intake appears relatively steady across all alcohol consumption groups, showing no strong correlation with drinking behaviour.</p>
+
+<h2>Personal care</h2>
+
+<div class="grid grid-cols-1">
+  <div class="card">
+    ${resize((width) => radarChart(data, {width}))}
+  </div>
+</div>
+
+<style>
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .text-container {
+    width: 100%;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: normal;
+    padding-bottom: 10px;
+  }
+</style>
