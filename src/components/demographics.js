@@ -3,6 +3,14 @@ import * as topojson from "topojson-client";
 import * as Plot from "@observablehq/plot";
 const us = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json");
 
+const validStates = new Set([
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", 
+  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
+  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
+  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
+  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"
+]);
+
 const stateAbbreviationMap = {
   'Alabama': 'AL',
   'Alaska': 'AK',
@@ -57,6 +65,22 @@ const stateAbbreviationMap = {
 }
 
 export function alcoholPercentageMap(gut, {width} = {}) {
+  gut = gut.filter(
+    (d) =>
+      d.alcohol_consumption !== undefined &&
+      d.alcohol_consumption !== null &&
+      d.state &&
+      validStates.has(d.state)
+  );
+
+  const samplesByState = d3
+    .rollups(
+      gut,
+      (v) => v.length, // count the number of samples
+      (d) => d.state, // group by state
+    )
+    .map(([state, count]) => ({ state, count })); // convert to array of objects
+
   const alcoholByState = new Map(
     d3
       .rollups(
@@ -141,7 +165,8 @@ export function alcoholPercentageMap(gut, {width} = {}) {
         .style("visibility", "visible")
         .html(
           `<strong>${d.properties.name}</strong><br>` +
-          `${percentage != null ? percentage.toFixed(2) : "No data"}% alcohol consumers`
+          `${percentage != null ? percentage.toFixed(2) : "No data"}% alcohol consumers<br>` +
+          `<div style="color: #777; font-size: 11px;">based on ${samplesByState.find(s => s.state === stateAbbreviationMap[d.properties.name])?.count || 0} samples</div>`
         );
     })
     .on("mouseout", function() {
@@ -224,10 +249,20 @@ export function alcoholPercentageMap(gut, {width} = {}) {
 }
 
 
-export function alcoholByGenderChart(gut, {width} = {}) {
-  // calculate percentages 
+export function alcoholByGenderChart(gut, selectedFrequency, {width} = {}) {
+  gut = gut.filter(
+    (d) =>
+      d.alcohol_consumption !== undefined &&
+      d.alcohol_consumption !== null &&
+      d.age_years &&
+      Math.floor(d.age_years / 10) * 10 >= 10 &&
+      Math.floor(d.age_years / 10) * 10 < 90 &&
+      (d.sex === "female" || d.sex === "male")
+  );
+
+  // calculate percentages - filtered by frequency if selected
   const alcoholByAgeGenderPercent = gut
-    .filter((d) => d.alcohol_consumption)
+    .filter((d) => ((selectedFrequency === "All" && d.alcohol_consumption)|| d.alcohol_frequency === selectedFrequency))
     .reduce((acc, d) => {
       const ageGroup = Math.floor(d.age_years / 10) * 10;
       const gender = d.sex;
@@ -430,7 +465,6 @@ export function alcoholByGenderChart(gut, {width} = {}) {
   return svg.node();
 }
 
-
 //////////////////////////////////////// unused older versions ////////////////////////////////////////
 
 /**
@@ -566,6 +600,316 @@ function alcoholByGenderChart3(gut) {
       ),
     ]
   });
+}
+
+function alcoholByGenderChart4(gut, {width} = {}) {
+  gut = gut.filter(
+    (d) =>
+      d.alcohol_consumption !== undefined &&
+      d.alcohol_consumption !== null &&
+      d.age_years &&
+      d.alcohol_frequency && // Ensure frequency exists
+      Math.floor(d.age_years / 10) * 10 >= 10 &&
+      Math.floor(d.age_years / 10) * 10 < 90 &&
+      (d.sex === "female" || d.sex === "male")
+  );
+
+  // Order frequencies from highest to lowest intensity
+  const frequencyOrder = [
+    "Daily", 
+    "Regularly (3-5 times/week)", 
+    "Occasionally (1-2 times/week)", 
+    "Rarely (a few times/month)", 
+  ];
+
+  // Define frequency colors - using a blue scale
+  const frequencyColors = {
+    "Daily": "#e41a1c", // red
+    "Regularly (3-5 times/week)": "#377eb8", // blue
+    "Occasionally (1-2 times/week)": "#4daf4a", // green
+    "Rarely (a few times/month)": "#984ea3", // purple
+  };
+
+  // Calculate data by age group, gender and frequency
+  const grouped = d3.rollup(
+    gut,
+    v => v.length,
+    d => Math.floor(d.age_years / 10) * 10, // Age group
+    d => d.sex,                             // Gender
+    d => d.alcohol_frequency                // Frequency
+  );
+
+  // Prepare data for visualization
+  const data = [];
+  
+  // Process grouped data
+  for (const [ageGroup, genderMap] of grouped) {
+    for (const [gender, frequencyMap] of genderMap) {
+      // Calculate total for this age-gender group
+      let total = 0;
+      for (const count of frequencyMap.values()) {
+        total += count;
+      }
+      
+      // Accumulate percentages for stacking
+      let cumPercentage = 0;
+      
+      // Add data point for each frequency
+      for (const freq of frequencyOrder) {
+        const count = frequencyMap.get(freq) || 0;
+        const percentage = (count / total) * 100;
+        
+        if (count > 0) {
+          data.push({
+            ageGroup,
+            ageLabel: `${ageGroup}s`,
+            gender,
+            frequency: freq,
+            percentage,
+            count,
+            total,
+            startPercentage: cumPercentage,
+            endPercentage: cumPercentage + percentage
+          });
+          
+          cumPercentage += percentage;
+        }
+      }
+    }
+  }
+
+  // Get unique age groups and sort them
+  const ageGroups = [...new Set(data.map(d => d.ageGroup))].sort((a, b) => a - b);
+  const genders = ["female", "male"];
+  const genderColors = {"female": "#FF5252", "male": "#4285F4"};
+
+  // Set up dimensions
+  const height = width * 0.6; // Increased height ratio for better visibility
+  const margin = {top: 50, right: 150, bottom: 50, left: 60};
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+
+  // Create SVG
+  const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  // Add title
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", 25)
+    .attr("text-anchor", "middle")
+    .attr("fill", "white")
+    .style("font-size", "16px")
+    .text("Alcohol Consumption Frequency by Age Group and Gender");
+
+  // Create tooltip
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "alcohol-tooltip")
+    .style("position", "absolute")
+    .style("background", "white")
+    .style("border", "1px solid black")
+    .style("border-radius", "3px")
+    .style("padding", "5px")
+    .style("box-shadow", "0 2px 5px rgba(0,0,0,0.1)")
+    .style("font-family", "sans-serif")
+    .style("font-size", "12px")
+    .style("color", "#333")
+    .style("pointer-events", "none")
+    .style("opacity", 0)
+    .style("z-index", 999);
+
+  // Group for the main chart area
+  const g = svg.append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  // Set up scales
+  const xScale = d3.scaleBand()
+    .domain(ageGroups.map(age => `${age}s`))
+    .range([0, innerWidth])
+    .paddingInner(0.3)
+    .paddingOuter(0.2);
+
+  const xSubScale = d3.scaleBand()
+    .domain(genders)
+    .range([0, xScale.bandwidth()])
+    .padding(0.1);
+
+  const yScale = d3.scaleLinear()
+    .domain([0, 100])
+    .range([innerHeight, 0])
+    .nice();
+
+  // Add x axis
+  g.append("g")
+    .attr("transform", `translate(0, ${innerHeight})`)
+    .call(d3.axisBottom(xScale))
+    .call(g => g.select(".domain").remove())
+    .call(g => g.selectAll(".tick text").attr("fill", "white"));
+
+  // x axis label
+  g.append("text")
+    .attr("class", "x-label")
+    .attr("text-anchor", "middle")
+    .attr("x", innerWidth / 2)
+    .attr("y", innerHeight + 40)
+    .attr("fill", "white")
+    .text("Age Group");
+
+  // Add y axis
+  g.append("g")
+    .call(d3.axisLeft(yScale)
+    .ticks(10)
+    .tickFormat(d => d + "%"))
+    .call(g => g.select(".domain").remove())
+    .call(g => g.selectAll(".tick text").attr("fill", "white"))
+    .call(g => g.selectAll(".tick line")
+    .clone()
+    .attr("x2", innerWidth)
+    .attr("stroke-opacity", 0.1));
+
+  // y axis label
+  g.append("text")
+    .attr("class", "y-label")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -innerHeight / 2)
+    .attr("y", -45)
+    .attr("fill", "white")
+    .text("Percentage (%)");
+
+  // Create nested groups for each age group
+  const ageGroupG = g.selectAll(".age-group")
+    .data(ageGroups)
+    .join("g")
+    .attr("class", "age-group")
+    .attr("transform", d => `translate(${xScale(`${d}s`)}, 0)`);
+
+  // Create columns for each gender within age groups
+  const genderG = ageGroupG.selectAll(".gender")
+    .data(ageGroup => genders.map(gender => ({ageGroup, gender})))
+    .join("g")
+    .attr("class", "gender")
+    .attr("transform", d => `translate(${xSubScale(d.gender)}, 0)`);
+
+  // Add frequency segments for each gender column
+  genderG.each(function(genderData) {
+    const genderGroup = d3.select(this);
+    
+    // Get data for this age-gender combination
+    const segmentData = data.filter(d => 
+      d.ageGroup === genderData.ageGroup && 
+      d.gender === genderData.gender
+    ).sort((a, b) => frequencyOrder.indexOf(a.frequency) - frequencyOrder.indexOf(b.frequency));
+    
+    // Add segments
+    genderGroup.selectAll(".segment")
+      .data(segmentData)
+      .join("rect")
+      .attr("class", "segment")
+      .attr("x", 0)
+      .attr("width", xSubScale.bandwidth())
+      .attr("y", d => yScale(d.endPercentage))
+      .attr("height", d => yScale(d.startPercentage) - yScale(d.endPercentage))
+      .attr("fill", d => frequencyColors[d.frequency])
+      .attr("stroke", "white")
+      .attr("stroke-width", 0.5)
+      .on("mouseover", function(event, d) {
+        d3.select(this)
+          .attr("stroke-width", 2)
+          .attr("stroke", "#ffeb3b");
+          
+        tooltip.transition()
+          .duration(100)
+          .style("opacity", 1);
+          
+        tooltip.html(`
+          <div>
+            <div><strong>Age:</strong> ${d.ageLabel}</div>
+            <div><strong>Gender:</strong> ${d.gender}</div>
+            <div><strong>Frequency:</strong> ${d.frequency}</div>
+            <div><strong>Percentage:</strong> ${d.percentage.toFixed(1)}%</div>
+            <div style="color: #777; font-size: 10px;">(${d.count}/${d.total} participants)</div>
+          </div>`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 28) + "px");
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .attr("stroke-width", 0.5)
+          .attr("stroke", "white");
+          
+        tooltip.transition()
+          .duration(100)
+          .style("opacity", 0);
+      });
+  });
+
+  // Add legend for genders
+  const genderLegend = svg.append("g")
+    .attr("class", "gender-legend")
+    .attr("transform", `translate(${width - margin.right + 10}, ${margin.top})`);
+
+  genderLegend.append("text")
+    .attr("x", 0)
+    .attr("y", -10)
+    .attr("fill", "white")
+    .style("font-size", "12px")
+    .style("font-weight", "bold")
+    .text("Gender");
+
+  genderLegend.selectAll(".gender-legend-item")
+    .data(genders)
+    .join("g")
+    .attr("class", "gender-legend-item")
+    .attr("transform", (d, i) => `translate(0, ${i * 25})`)
+    .call(g => {
+      g.append("rect")
+        .attr("width", 15)
+        .attr("height", 15)
+        .attr("fill", d => genderColors[d]);
+        
+      g.append("text")
+        .attr("x", 20)
+        .attr("y", 12.5)
+        .attr("fill", "white")
+        .attr("font-size", "12px") 
+        .text(d => d);
+    });
+
+  // Add legend for frequencies
+  const freqLegend = svg.append("g")
+    .attr("class", "freq-legend")
+    .attr("transform", `translate(${width - margin.right + 10}, ${margin.top + 70})`);
+
+  freqLegend.append("text")
+    .attr("x", 0)
+    .attr("y", -10)
+    .attr("fill", "white")
+    .style("font-size", "12px")
+    .style("font-weight", "bold")
+    .text("Frequency");
+
+  freqLegend.selectAll(".freq-legend-item")
+    .data(frequencyOrder)
+    .join("g")
+    .attr("class", "freq-legend-item")
+    .attr("transform", (d, i) => `translate(0, ${i * 25})`)
+    .call(g => {
+      g.append("rect")
+        .attr("width", 15)
+        .attr("height", 15)
+        .attr("fill", d => frequencyColors[d]);
+        
+      g.append("text")
+        .attr("x", 20)
+        .attr("y", 12.5)
+        .attr("fill", "white")
+        .attr("font-size", "12px") 
+        .text(d => d);
+    });
+
+  return svg.node();
 }
 
 function statesAlcoholPercentage() {
