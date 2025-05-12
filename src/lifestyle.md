@@ -221,13 +221,10 @@ result.push(chartsContainer);
   </div>
 </div>
 
-<p class="text-container">This plot reveals that a notably large share of daily alcohol consumers report not feeling well when consuming gluten. This may point to increased sensitivity in this group, or possibly lifestyle or dietary factors that correlate with daily drinking.</p>
+<p class="text-container">Dietary habits also show interesting variation across alcohol consumption levels. For example, a remarkably high proportion of daily drinkers report not feeling well when consuming gluten. This could indicate increased sensitivity within this group or reflect lifestyle or dietary patterns that tend to co-occur with frequent alcohol use.</p>
 
 <p class="text-container">
-When it comes to lactose, it's interesting that the highest proportion of lactose consumers are the people who never drink alcohol, though this is still only about a quarter of that group which may suggest that lactose consumption is generally low in the sample.</p>
-
-<p class="text-container">
-Multivitamin intake appears relatively steady across all alcohol consumption groups, showing no strong correlation with drinking behaviour.</p>
+In contrast, lactose consumption is highest among those who never drink, although only about a quarter of this group reports consuming lactose. This relatively low number suggests that lactose consumption is generally uncommon in the sample. Meanwhile, multivitamin use remains fairly steady across all groups, showing no clear link with alcohol consumption.</p>
 
 <h2>Personal care</h2>
 
@@ -236,6 +233,10 @@ Multivitamin intake appears relatively steady across all alcohol consumption gro
     ${resize((width) => radarChart(data, {width}))}
   </div>
 </div>
+
+<p class="text-container">
+To explore self-care and personal hygiene, we created a radar chart comparing habits across the five alcohol groups. The chart includes behaviours such as flossing, brushing teeth, cosmetic use, exercise, and sleep, each rated on a scale from 0 (completely neglectful) to 4 (highly consistent). Surprisingly, all groups follow similar patterns of self-care, with one exception: the two extremes—those who never drink and those who drink daily—report noticeably lower use of cosmetics. This might suggest that both groups place less emphasis on appearance-related routines, potentially for very different reasons, ranging from lifestyle preferences to health or cultural values.
+</p>
 
 <style>
   .no-wrap {

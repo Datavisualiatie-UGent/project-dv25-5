@@ -31,7 +31,7 @@ import {
   </div>
 </div>
 
-<p class="text-container">This chart shows the percentage of people who consume alcohol at different frequencies across BMI categories. Notably, most underweight individuals never drink alcohol. The proportion of daily drinkers rises from underweight to normal and then to overweight, but drops again in the obese group. This might be explained by increased motivation to lose weight among obese individuals, or by health issues that discourage frequent alcohol use.</p>
+<p class="text-container">When examining health-related variables, several patterns emerge. For instance, alcohol consumption and BMI are clearly related. Most underweight individuals tend to avoid alcohol entirely, while the proportion of daily drinkers increases among those with normal and overweight BMIs. This proportion drops again in the obese group. This might be explained by increased motivation to lose weight among obese individuals, or by health issues that discourage frequent alcohol use.</p>
 
 <h2>Correlation with diabetes</h2>
 
@@ -50,10 +50,7 @@ const showDiabetics = view(
   </div>
 </div>
 
-<p class="text-container">This chart flips the perspective, showing the BMI distribution within each alcohol consumption group. Overall, higher alcohol frequency is associated with an increase in BMI.</p>
-
-<p class="text-container">
-When highlighting diabetic individuals, it's striking that in the group that never drinks, all cases are well above a healthy BMI. In contrast, as alcohol use increases, more diabetics appear with a normal BMI. This may suggest a potential link between alcohol consumption and the presence of diabetes in individuals with a healthy weight.</p>
+<p class="text-container">Switching perspective, when we look at the BMI distribution within each alcohol group, a general trend emerges: people who drink more frequently tend to have higher BMIs. This correlation becomes even more intriguing when focusing on diabetic individuals. Among those who never drink, all diabetic cases fall well above a healthy BMI. As drinking frequency increases, however, diabetic individuals with normal BMIs become more prevalent. This may hint at a complex interaction between alcohol consumption, weight, and diabetes risk.</p>
 
 <h2>Alcohol consumption and migraines</h2>
 
@@ -63,7 +60,7 @@ When highlighting diabetic individuals, it's striking that in the group that nev
   </div>
 </div>
 
-<p class="text-container">This plot shows that people who suffer from migraines are significantly more represented in the group that rarely or never drinks alcohol. It suggests that individuals with migraines may avoid alcohol more often, possibly due to alcohol being a known trigger or worsening factor.</p>
+<p class="text-container">Another striking health-related observation involves migraines. People who suffer from migraines are far more common in the groups that rarely or never drink. This suggests that individuals with migraines might avoid alcohol, potentially because it is a known trigger for migraine episodes.</p>
 
 <style>
   .no-wrap {
