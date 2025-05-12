@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.2">
+<title>Lifestyle | American Gut Project</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-near-midnight.d49e655d.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-near-midnight.d49e655d.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.02eddafc.js">
+<link rel="modulepreload" href="./_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.82806664.js">
+<link rel="modulepreload" href="./_import/components/lifestyle.ea314bf2.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.6ba3de0b.js">
+<link rel="modulepreload" href="./_import/components/health.1ac598d0.js">
+<link rel="modulepreload" href="./_node/d3@7.9.0/index.6063bdcc.js">
+<link rel="modulepreload" href="./_node/@observablehq/plot@0.6.17/index.28168f6d.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_node/d3-array@3.2.4/index.f89e3560.js">
+<link rel="modulepreload" href="./_node/d3-axis@3.0.0/index.34ded868.js">
+<link rel="modulepreload" href="./_node/d3-brush@3.0.0/index.76e53644.js">
+<link rel="modulepreload" href="./_node/d3-chord@3.0.1/index.eb7a3f59.js">
+<link rel="modulepreload" href="./_node/d3-color@3.1.0/index.e8c126ff.js">
+<link rel="modulepreload" href="./_node/d3-contour@4.0.2/index.dec5b7e9.js">
+<link rel="modulepreload" href="./_node/d3-delaunay@6.0.4/index.1771ba9f.js">
+<link rel="modulepreload" href="./_node/d3-dispatch@3.0.1/index.be49ca5f.js">
+<link rel="modulepreload" href="./_node/d3-drag@3.0.0/index.d3ae5f0f.js">
+<link rel="modulepreload" href="./_node/d3-dsv@3.0.1/index.48418e2e.js">
+<link rel="modulepreload" href="./_node/d3-ease@3.0.1/index.09153f73.js">
+<link rel="modulepreload" href="./_node/d3-fetch@3.0.1/index.2c1c499d.js">
+<link rel="modulepreload" href="./_node/d3-force@3.0.0/index.952bd793.js">
+<link rel="modulepreload" href="./_node/d3-format@3.1.0/index.da30fb93.js">
+<link rel="modulepreload" href="./_node/d3-geo@3.1.1/index.0cc60a7f.js">
+<link rel="modulepreload" href="./_node/d3-hierarchy@3.1.2/index.0a013d9a.js">
+<link rel="modulepreload" href="./_node/d3-interpolate@3.0.1/index.7ed7c7fe.js">
+<link rel="modulepreload" href="./_node/d3-path@3.1.0/index.c2b3c473.js">
+<link rel="modulepreload" href="./_node/d3-polygon@3.0.1/index.32c3d834.js">
+<link rel="modulepreload" href="./_node/d3-quadtree@3.0.1/index.e9fed2eb.js">
+<link rel="modulepreload" href="./_node/d3-random@3.0.1/index.fd2cc361.js">
+<link rel="modulepreload" href="./_node/d3-scale@4.0.2/index.0574410e.js">
+<link rel="modulepreload" href="./_node/d3-scale-chromatic@3.1.0/index.7961cbed.js">
+<link rel="modulepreload" href="./_node/d3-selection@3.0.0/index.13204b25.js">
+<link rel="modulepreload" href="./_node/d3-shape@3.2.0/index.b551bc1c.js">
+<link rel="modulepreload" href="./_node/d3-time@3.1.0/index.8fcc123e.js">
+<link rel="modulepreload" href="./_node/d3-time-format@4.1.0/index.08e7c36a.js">
+<link rel="modulepreload" href="./_node/d3-timer@3.0.1/index.0ee6092b.js">
+<link rel="modulepreload" href="./_node/d3-transition@3.0.1/index.d140d658.js">
+<link rel="modulepreload" href="./_node/d3-zoom@3.0.0/index.78e4486d.js">
+<link rel="modulepreload" href="./_node/isoformat@0.2.1/index.0882e9d9.js">
+<link rel="modulepreload" href="./_node/interval-tree-1d@1.0.4/index.eeaa354d.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="./_node/internmap@2.0.3/index.4106013c.js">
+<link rel="modulepreload" href="./_node/delaunator@5.0.1/index.70ae1478.js">
+<link rel="modulepreload" href="./_node/binary-search-bounds@2.0.5/index.990a1c6d.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/aa00730b.js">
+<link rel="modulepreload" href="./_node/robust-predicates@3.0.2/index.bdc459cc.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.02eddafc.js";
+import {registerFile} from "./_observablehq/stdlib.82806664.js";
+
+registerFile("./data/data_am_numeric.csv", {"name":"./data/data_am_numeric.csv","mimeType":"text/csv","path":"./_file/data/data_am_numeric.7ff3b4ad.csv","lastModified":1747028462693,"size":4873108});
+
+define({id: "8ae01d5f", inputs: ["FileAttachment"], outputs: ["data","radarChart","AlcoholRadarChart"], body: async (FileAttachment) => {
+const {radarChart, AlcoholRadarChart} = await import("./_import/components/lifestyle.ea314bf2.js");
+let data = await FileAttachment("./data/data_am_numeric.csv").csv({ typed: true });
+
+return {data,radarChart,AlcoholRadarChart};
+}});
+
+define({id: "086b9fe0", inputs: ["d3","html","svg"], outputs: ["categoryOrders","kleurensets","makeWafelChartMulti","makeLegend"], body: (d3,html,svg) => {
+const categoryOrders = {
+  gluten: [
+    "I do not eat gluten because it makes me feel bad",
+    "No",
+    "I was diagnosed with celiac disease",
+    "I was diagnosed with gluten allergy (anti-gluten IgG), but not celiac disease",
+  ],
+  lactose: ["TRUE", "FALSE"],
+  multivitamin: ["TRUE", "FALSE"],
+};
+
+const kleurensets = {
+  gluten: d3
+    .scaleOrdinal()
+    .domain([
+      "I do not eat gluten because it makes me feel bad",
+      "No",
+      "I was diagnosed with celiac disease",
+      "I was diagnosed with gluten allergy (anti-gluten IgG), but not celiac disease",
+    ])
+    .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"]),
+
+  lactose: d3.scaleOrdinal().domain([true, false]).range(["#1f78b4", "#a6cee3"]),
+
+  multivitamin: d3
+    .scaleOrdinal()
+    .domain([true, false])
+    .range(["#1f78b4", "#a6cee3"]),
+};
+
+function makeWafelChartMulti(categories, size = 100, selectedVariable) {
+  let blocks = [];
+  let start = 0;
+
+  let cols = Math.ceil(Math.sqrt(size));
+  let rows = Math.ceil(size / cols);
+
+  let fixedOrder = categoryOrders[selectedVariable];
+
+  let categoryMap = new Map(categories.map((c) => [c.label, c]));
+
+  let completeCategories = fixedOrder.map((label) => {
+    let cat = categoryMap.get(label);
+    return {
+      label: label,
+      percentage: cat ? cat.percentage : 0,
+    };
+  });
+
+  let rawCounts = completeCategories.map((c) => ({
+    label: c.label,
+    count: Math.floor(c.percentage * size),
+    percentage: c.percentage,
+  }));
+
+  let total = rawCounts.reduce((sum, c) => sum + c.count, 0);
+  let remainder = size - total;
+
+  rawCounts
+    .sort((a, b) => (b.percentage % 1) - (a.percentage % 1))
+    .forEach((c) => {
+      if (remainder > 0) {
+        c.count += 1;
+        remainder -= 1;
+      }
+    });
+
+  rawCounts.forEach((c) => {
+    for (let i = 0; i < c.count; i++) {
+      let index = start + i;
+      blocks.push({
+        label: c.label,
+        row: Math.floor(index / cols),
+        col: index % cols,
+      });
+    }
+    start += c.count;
+  });
+
+  return blocks;
+}
+
+function makeLegend(variable) {
+  let legendData = [];
+
+  if (variable === "gluten") {
+    legendData = [
+      {
+        label: "I do not eat gluten because it makes me feel bad",
+        color: "#66c2a5",
+      },
+      { label: "No", color: "#fc8d62" },
+      { label: "I was diagnosed with celiac disease", color: "#8da0cb" },
+      {
+        label:
+          "I was diagnosed with gluten allergy (anti-gluten IgG), but not celiac disease",
+        color: "#e78ac3",
+      },
+    ];
+  } else if (variable === "lactose") {
+    legendData = [
+      { label: "true", color: "#1f78b4" },
+      { label: "false", color: "#a6cee3" },
+    ];
+  } else if (variable === "multivitamin") {
+    legendData = [
+      { label: "true", color: "#1f78b4" },
+      { label: "false", color: "#a6cee3" },
+    ];
+  }
+
+  const svgWidth = variable === "gluten" ? 500 : 150;
+
+  return html`
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+      <h5>Legend for ${variable.charAt(0).toUpperCase() + variable.slice(1)}</h5>
+      <svg width="${svgWidth}" height="${legendData.length * 20}">
+        ${legendData.map(
+          (entry, index) => svg`
+          <rect x="0" y="${index * 20}" width="15" height="15" fill="${
+            entry.color
+          }" />
+          <text x="20" y="${index * 20 + 12}" font-size="12" fill="white">${
+            entry.label
+          }</text>
+        `,
+        )}
+      </svg>
+    </div>
+  `;
+}
+return {categoryOrders,kleurensets,makeWafelChartMulti,makeLegend};
+}});
+
+define({id: "c3768f0f", inputs: ["view","Inputs"], outputs: ["selectedVariable"], body: (view,Inputs) => {
+const selectedVariable = view(
+  Inputs.radio(["gluten", "lactose", "multivitamin"], {
+    label: "Choose nutritional intake:",
+    value: "gluten",
+  }),
+);
+return {selectedVariable};
+}});
+
+define({id: "f6364512", inputs: ["makeLegend","selectedVariable","html","data","d3","categoryOrders","makeWafelChartMulti","svg","kleurensets"], outputs: ["result","alcoholCategories","chartsContainer"], body: (makeLegend,selectedVariable,html,data,d3,categoryOrders,makeWafelChartMulti,svg,kleurensets) => {
+let result = [];
+
+let alcoholCategories = [
+  "Daily",
+  "Occasionally (1-2 times/week)",
+  "Rarely (a few times/month)",
+  "Regularly (3-5 times/week)",
+  "Never",
+];
+
+result.push(makeLegend(selectedVariable));
+
+let chartsContainer = html`
+  <div
+    style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: flex-start;"
+  >
+    ${alcoholCategories
+      .map((alcohol) => {
+        let subset = data.filter((d) => d.alcohol_frequency === alcohol);
+        let total = subset.length;
+
+        if (total === 0) return null; // Skip if no data
+
+        let parts = Array.from(
+          d3.group(subset, (d) => d[selectedVariable]),
+          ([key, values]) => ({
+            label: key,
+            value: values.length,
+            percentage: values.length / total,
+          }),
+        );
+
+        let sortedParts = categoryOrders[selectedVariable].map((label) => {
+          let found = parts.find((p) => p.label === label);
+          return found || { label: label, value: 0, percentage: 0 };
+        });
+
+        let grid = makeWafelChartMulti(sortedParts, 100, selectedVariable);
+
+        return html`
+          <div
+            style="margin-bottom: 1em; min-width: 130px; max-width: 130px; display: flex; flex-direction: column;"
+          >
+            <div style="height: 40px; display: flex; align-items: center;">
+              <h5 style="margin: 0; font-size: 14px;">${alcohol}</h5>
+            </div>
+            <svg width="110" height="110">
+              ${grid.map(
+                (cell) => svg`
+                <rect x="${cell.col * 10}" y="${cell.row * 10}" width="9" height="9"
+                  fill="${kleurensets[selectedVariable](cell.label)}" />
+              `,
+              )}
+            </svg>
+          </div>
+        `;
+      })
+      .filter((chart) => chart !== null)}
+  </div>
+`;
+
+result.push(chartsContainer);
+return {result,alcoholCategories,chartsContainer};
+}});
+
+define({id: "f6a214f7", mode: "inline", inputs: ["result","display"], body: async (result,display) => {
+display(await(
+result
+))
+}});
+
+define({id: "26c74088", mode: "inline", inputs: ["resize","radarChart","data","display"], body: async (resize,radarChart,data,display) => {
+display(await(
+resize((width) => radarChart(data, {width}))
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">American Gut Project</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./demographics">Demographics</a></li>
+    <li class="observablehq-link"><a href="./health">Health</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./lifestyle">Lifestyle</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<h1 id="lifestyle" tabindex="-1"><a class="observablehq-header-anchor" href="#lifestyle">Lifestyle</a></h1>
+<div class="observablehq observablehq--block"><!--:8ae01d5f:--></div>
+<div class="observablehq observablehq--block"><!--:086b9fe0:--></div>
+<h2>Eating habits</h2>
+<div class="observablehq observablehq--block"><!--:c3768f0f:--></div>
+<div class="observablehq observablehq--block"><!--:f6364512:--></div>
+<div class="grid grid-cols-1">
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:f6a214f7:-->
+  </div>
+</div>
+<p class="text-container">Dietary habits also show interesting variation across alcohol consumption levels. For example, a remarkably high proportion of daily drinkers report not feeling well when consuming gluten. This could indicate increased sensitivity within this group or reflect lifestyle or dietary patterns that tend to co-occur with frequent alcohol use.</p>
+<p class="text-container">
+In contrast, lactose consumption is highest among those who never drink, although only about a quarter of this group reports consuming lactose. This relatively low number suggests that lactose consumption is generally uncommon in the sample. Meanwhile, multivitamin use remains fairly steady across all groups, showing no clear link with alcohol consumption.</p>
+<h2>Personal care</h2>
+<div class="grid grid-cols-1">
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:26c74088:-->
+  </div>
+</div>
+<p class="text-container">
+To explore self-care and personal hygiene, we created a radar chart comparing habits across the five alcohol groups. The chart includes behaviours such as flossing, brushing teeth, cosmetic use, exercise, and sleep, each rated on a scale from 0 (completely neglectful) to 4 (highly consistent). Surprisingly, all groups follow similar patterns of self-care, with one exception: the two extremes—those who never drink and those who drink daily—report noticeably lower use of cosmetics. This might suggest that both groups place less emphasis on appearance-related routines, potentially for very different reasons, ranging from lifestyle preferences to health or cultural values.
+</p>
+<style>
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .text-container {
+    width: 100%;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: normal;
+    padding-bottom: 10px;
+  }
+</style>
+</main>
+<footer id="observablehq-footer">
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-05-12T07:43:25">May 12, 2025</a>.</div>
+</footer>
+</div>
+</body>
+</html>

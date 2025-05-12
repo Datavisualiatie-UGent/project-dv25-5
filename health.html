@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.2">
+<title>Health | American Gut Project</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-near-midnight.d49e655d.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-near-midnight.d49e655d.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.02eddafc.js">
+<link rel="modulepreload" href="./_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.82806664.js">
+<link rel="modulepreload" href="./_import/components/health.1ac598d0.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.6ba3de0b.js">
+<link rel="modulepreload" href="./_node/d3@7.9.0/index.6063bdcc.js">
+<link rel="modulepreload" href="./_node/@observablehq/plot@0.6.17/index.28168f6d.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_node/d3-array@3.2.4/index.f89e3560.js">
+<link rel="modulepreload" href="./_node/d3-axis@3.0.0/index.34ded868.js">
+<link rel="modulepreload" href="./_node/d3-brush@3.0.0/index.76e53644.js">
+<link rel="modulepreload" href="./_node/d3-chord@3.0.1/index.eb7a3f59.js">
+<link rel="modulepreload" href="./_node/d3-color@3.1.0/index.e8c126ff.js">
+<link rel="modulepreload" href="./_node/d3-contour@4.0.2/index.dec5b7e9.js">
+<link rel="modulepreload" href="./_node/d3-delaunay@6.0.4/index.1771ba9f.js">
+<link rel="modulepreload" href="./_node/d3-dispatch@3.0.1/index.be49ca5f.js">
+<link rel="modulepreload" href="./_node/d3-drag@3.0.0/index.d3ae5f0f.js">
+<link rel="modulepreload" href="./_node/d3-dsv@3.0.1/index.48418e2e.js">
+<link rel="modulepreload" href="./_node/d3-ease@3.0.1/index.09153f73.js">
+<link rel="modulepreload" href="./_node/d3-fetch@3.0.1/index.2c1c499d.js">
+<link rel="modulepreload" href="./_node/d3-force@3.0.0/index.952bd793.js">
+<link rel="modulepreload" href="./_node/d3-format@3.1.0/index.da30fb93.js">
+<link rel="modulepreload" href="./_node/d3-geo@3.1.1/index.0cc60a7f.js">
+<link rel="modulepreload" href="./_node/d3-hierarchy@3.1.2/index.0a013d9a.js">
+<link rel="modulepreload" href="./_node/d3-interpolate@3.0.1/index.7ed7c7fe.js">
+<link rel="modulepreload" href="./_node/d3-path@3.1.0/index.c2b3c473.js">
+<link rel="modulepreload" href="./_node/d3-polygon@3.0.1/index.32c3d834.js">
+<link rel="modulepreload" href="./_node/d3-quadtree@3.0.1/index.e9fed2eb.js">
+<link rel="modulepreload" href="./_node/d3-random@3.0.1/index.fd2cc361.js">
+<link rel="modulepreload" href="./_node/d3-scale@4.0.2/index.0574410e.js">
+<link rel="modulepreload" href="./_node/d3-scale-chromatic@3.1.0/index.7961cbed.js">
+<link rel="modulepreload" href="./_node/d3-selection@3.0.0/index.13204b25.js">
+<link rel="modulepreload" href="./_node/d3-shape@3.2.0/index.b551bc1c.js">
+<link rel="modulepreload" href="./_node/d3-time@3.1.0/index.8fcc123e.js">
+<link rel="modulepreload" href="./_node/d3-time-format@4.1.0/index.08e7c36a.js">
+<link rel="modulepreload" href="./_node/d3-timer@3.0.1/index.0ee6092b.js">
+<link rel="modulepreload" href="./_node/d3-transition@3.0.1/index.d140d658.js">
+<link rel="modulepreload" href="./_node/d3-zoom@3.0.0/index.78e4486d.js">
+<link rel="modulepreload" href="./_node/isoformat@0.2.1/index.0882e9d9.js">
+<link rel="modulepreload" href="./_node/interval-tree-1d@1.0.4/index.eeaa354d.js">
+<link rel="modulepreload" href="./_node/internmap@2.0.3/index.4106013c.js">
+<link rel="modulepreload" href="./_node/delaunator@5.0.1/index.70ae1478.js">
+<link rel="modulepreload" href="./_node/binary-search-bounds@2.0.5/index.990a1c6d.js">
+<link rel="modulepreload" href="./_node/robust-predicates@3.0.2/index.bdc459cc.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.02eddafc.js";
+import {registerFile} from "./_observablehq/stdlib.82806664.js";
+
+registerFile("./data/data_clean_am.csv", {"name":"./data/data_clean_am.csv","mimeType":"text/csv","path":"./_file/data/data_clean_am.4520c93d.csv","lastModified":1747028462823,"size":4413396});
+
+define({id: "858f8303", inputs: ["FileAttachment"], outputs: ["data_clean_am","data_bool","alcoholBmi","alcoholBmiDiabetes","alcoholMigraines"], body: async (FileAttachment) => {
+const {alcoholBmi, alcoholBmiDiabetes, alcoholMigraines} = await import("./_import/components/health.1ac598d0.js");
+let data_clean_am = await FileAttachment("./data/data_clean_am.csv").csv({
+  typed: true,
+});
+let data_bool = data_clean_am.map((d) => ({
+  ...d,
+  diabetes_yes: d.diabetes !== "I do not have this condition",
+  skin_condition_yes: d.skin_condition !== "I do not have this condition",
+  ibd_yes: d.ibd !== "I do not have this condition",
+  migraine_yes: d.migraine !== "I do not have this condition",
+}));
+
+
+return {data_clean_am,data_bool,alcoholBmi,alcoholBmiDiabetes,alcoholMigraines};
+}});
+
+define({id: "c2795430", mode: "inline", inputs: ["resize","alcoholBmi","data_clean_am","display"], body: async (resize,alcoholBmi,data_clean_am,display) => {
+display(await(
+resize((width) => alcoholBmi(data_clean_am, {width}))
+))
+}});
+
+define({id: "70f08691", inputs: ["view","Inputs"], outputs: ["showDiabetics"], body: (view,Inputs) => {
+const showDiabetics = view(
+  Inputs.toggle({
+    label: "Show diabetics",
+    value: "true",
+  }),
+);
+return {showDiabetics};
+}});
+
+define({id: "6329c101", mode: "inline", inputs: ["resize","alcoholBmiDiabetes","data_bool","showDiabetics","display"], body: async (resize,alcoholBmiDiabetes,data_bool,showDiabetics,display) => {
+display(await(
+resize((width) => alcoholBmiDiabetes(data_bool, showDiabetics, {width}))
+))
+}});
+
+define({id: "371fe2a3", mode: "inline", inputs: ["resize","alcoholMigraines","data_bool","display"], body: async (resize,alcoholMigraines,data_bool,display) => {
+display(await(
+resize((width) => alcoholMigraines(data_bool, {width}))
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">American Gut Project</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./demographics">Demographics</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./health">Health</a></li>
+    <li class="observablehq-link"><a href="./lifestyle">Lifestyle</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<h1 class="no-wrap">Health</h1>
+<div class="observablehq observablehq--block"><!--:858f8303:--></div>
+<h2 class="text-container">Alcohol consumption and BMI</h2>
+<div class="grid grid-cols-1">
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:c2795430:-->
+  </div>
+</div>
+<p class="text-container">When examining health-related variables, several patterns emerge. For instance, alcohol consumption and BMI are clearly related. Most underweight individuals tend to avoid alcohol entirely, while the proportion of daily drinkers increases among those with normal and overweight BMIs. This proportion drops again in the obese group. This might be explained by increased motivation to lose weight among obese individuals, or by health issues that discourage frequent alcohol use.</p>
+<h2>Correlation with diabetes</h2>
+<div class="observablehq observablehq--block"><!--:70f08691:--></div>
+<div class="grid grid-cols-1">
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:6329c101:-->
+  </div>
+</div>
+<p class="text-container">Switching perspective, when we look at the BMI distribution within each alcohol group, a general trend emerges: people who drink more frequently tend to have higher BMIs. This correlation becomes even more intriguing when focusing on diabetic individuals. Among those who never drink, all diabetic cases fall well above a healthy BMI. As drinking frequency increases, however, diabetic individuals with normal BMIs become more prevalent. This may hint at a complex interaction between alcohol consumption, weight, and diabetes risk.</p>
+<h2>Alcohol consumption and migraines</h2>
+<div class="grid grid-cols-1">
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:371fe2a3:-->
+  </div>
+</div>
+<p class="text-container">Another striking health-related observation involves migraines. People who suffer from migraines are far more common in the groups that rarely or never drink. This suggests that individuals with migraines might avoid alcohol, potentially because it is a known trigger for migraine episodes.</p>
+<style>
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .text-container {
+    width: 100%;
+    max-width: 880px;  /* Match the width your charts use */
+    margin-left: auto;
+    margin-right: auto;
+    white-space: normal;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+</style>
+</main>
+<footer id="observablehq-footer">
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-05-12T07:43:25">May 12, 2025</a>.</div>
+</footer>
+</div>
+</body>
+</html>
